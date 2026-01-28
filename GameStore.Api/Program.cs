@@ -1,18 +1,12 @@
-using GameStore.Api.Database;
 using GameStore.Api.Endpoints;
 using GameStore.Api.Extensions;
 using GameStore.Api.Middleware;
-using GameStore.Api.Repositories;
-using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddDbContext<GameStoreContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+builder.Services.AddPresistence(builder.Configuration);
 
 builder.Services.AddValidation();
 builder.Services.AddOpenApi();
@@ -28,8 +22,6 @@ builder.Services.AddProblemDetails(options =>
 });
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
-
-builder.Services.AddScoped<IGameRepository,GameRepository>();
 
 var app = builder.Build();
 
