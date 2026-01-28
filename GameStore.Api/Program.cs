@@ -1,5 +1,6 @@
 using GameStore.Api.Database;
 using GameStore.Api.Endpoints;
+using GameStore.Api.Extensions;
 using GameStore.Api.Middleware;
 using GameStore.Api.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +39,7 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
     app.UseSwagger();
     app.UseSwaggerUI();
+    await app.ApplyMigrationsAsync();
 }
 
 app.MapGameEndpoints();
