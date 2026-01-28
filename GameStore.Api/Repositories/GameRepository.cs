@@ -24,6 +24,7 @@ public class GameRepository(GameStoreContext context) : IGameRepository
 
     public async Task UpdateAsync(Game game, CancellationToken ct)
     {
+        context.Games.Update(game);
         await context.SaveChangesAsync(ct);
     }
 
