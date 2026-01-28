@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.Api", "GameStore.Api\GameStore.Api.csproj", "{74EDED14-0E43-47B7-98E5-C0EF6635FF85}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8EF24269-2685-423E-A6AD-7A39982F609A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{74EDED14-0E43-47B7-98E5-C0EF6635FF85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74EDED14-0E43-47B7-98E5-C0EF6635FF85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74EDED14-0E43-47B7-98E5-C0EF6635FF85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74EDED14-0E43-47B7-98E5-C0EF6635FF85}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{74EDED14-0E43-47B7-98E5-C0EF6635FF85} = {8EF24269-2685-423E-A6AD-7A39982F609A}
+	EndGlobalSection
+EndGlobal
