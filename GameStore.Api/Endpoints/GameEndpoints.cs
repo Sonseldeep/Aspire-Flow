@@ -14,7 +14,12 @@ public static class GameEndpoints
         group.MapGet("/", async (IGameRepository repo, CancellationToken ct) =>
         {
             var games = await repo.GetAllAsync(ct);
-            return Results.Ok(games.Select(g => g.ToDto()));
+
+            var gamesCollectionDto = new GameCollectionDto
+            {
+                Items = games.Select(g => g.ToDto())
+            };
+            return Results.Ok(gamesCollectionDto);
         });
 
         group.MapGet("/{id:guid}", async (Guid id, IGameRepository repo, CancellationToken ct) =>
