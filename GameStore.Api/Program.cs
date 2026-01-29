@@ -12,6 +12,7 @@ builder.AddServiceDefaults();
 
 builder.AddNpgsqlDbContext<GameStoreContext>("GameStore");
 builder.Services.AddScoped<IGameRepository,GameRepository>();
+builder.AddRedisDistributedCache("redis");
 
 // builder.Services.AddPresistence(builder.Configuration);
 
