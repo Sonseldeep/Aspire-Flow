@@ -10,7 +10,8 @@ public static class ServiceCollectionExtension
     {
         services.AddDbContext<GameStoreContext>(options =>
         {
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            options.UseSqlServer(configuration.GetConnectionString("GameStore"));
+         
         });
         services.AddScoped<IGameRepository, GameRepository>();
         return services;
