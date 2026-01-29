@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.Api", "GameStore.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8EF24269-2685-423E-A6AD-7A39982F609A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.AppHost", "GameStore.AppHost\GameStore.AppHost.csproj", "{8C5E8EFA-EE65-40F4-89D3-BF6BBE83B11F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStore.Service.Defaults", "GameStore.Service.Defaults\GameStore.Service.Defaults.csproj", "{6575A2B8-DEF2-45A1-B419-867D75EDE644}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,8 +18,18 @@ Global
 		{74EDED14-0E43-47B7-98E5-C0EF6635FF85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74EDED14-0E43-47B7-98E5-C0EF6635FF85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74EDED14-0E43-47B7-98E5-C0EF6635FF85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C5E8EFA-EE65-40F4-89D3-BF6BBE83B11F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C5E8EFA-EE65-40F4-89D3-BF6BBE83B11F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C5E8EFA-EE65-40F4-89D3-BF6BBE83B11F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C5E8EFA-EE65-40F4-89D3-BF6BBE83B11F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6575A2B8-DEF2-45A1-B419-867D75EDE644}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6575A2B8-DEF2-45A1-B419-867D75EDE644}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6575A2B8-DEF2-45A1-B419-867D75EDE644}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6575A2B8-DEF2-45A1-B419-867D75EDE644}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{74EDED14-0E43-47B7-98E5-C0EF6635FF85} = {8EF24269-2685-423E-A6AD-7A39982F609A}
+		{8C5E8EFA-EE65-40F4-89D3-BF6BBE83B11F} = {8EF24269-2685-423E-A6AD-7A39982F609A}
+		{6575A2B8-DEF2-45A1-B419-867D75EDE644} = {8EF24269-2685-423E-A6AD-7A39982F609A}
 	EndGlobalSection
 EndGlobal
