@@ -1,12 +1,19 @@
+using GameStore.Api.Database;
 using GameStore.Api.Endpoints;
 using GameStore.Api.Extensions;
 using GameStore.Api.Middleware;
+using GameStore.Api.Repositories;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddPresistence(builder.Configuration);
+builder.AddServiceDefaults();
+
+builder.AddNpgsqlDbContext<GameStoreContext>("GameStore");
+builder.Services.AddScoped<IGameRepository,GameRepository>();
+
+// builder.Services.AddPresistence(builder.Configuration);
 
 builder.Services.AddValidation();
 builder.Services.AddOpenApi();
@@ -34,6 +41,7 @@ if (app.Environment.IsDevelopment())
     await app.ApplyMigrationsAsync();
 }
 
+app.MapDefaultEndpoints();
 app.MapGameEndpoints();
 app.UseHttpsRedirection();
 app.UseExceptionHandler();
