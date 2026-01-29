@@ -1,6 +1,8 @@
+using System.Text.Json;
 using GameStore.Api.DTOs;
 using GameStore.Api.Mappings;
 using GameStore.Api.Repositories;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace GameStore.Api.Endpoints;
 
@@ -22,11 +24,46 @@ public static class GameEndpoints
             return Results.Ok(gamesCollectionDto);
         });
 
-        group.MapGet("/{id:guid}", async (Guid id, IGameRepository repo, CancellationToken ct) =>
+        group.MapGet("/{id:guid}", async (
+            Guid id,
+            IGameRepository repo,
+            IDistributedCache cache,
+            ILogger<Program> logger,
+            CancellationToken ct) =>
         {
+            var cacheKey = $"game:{id}";
+
+            var cachedJson = await cache.GetStringAsync(cacheKey, ct);
+            if (cachedJson is not null)
+            {
+                logger.LogInformation("Cache HIT for game {GameId}", id);
+
+                return Results.Ok(
+                    JsonSerializer.Deserialize<GameDto>(cachedJson)
+                );
+            }
+
+            logger.LogInformation("Cache MISS for game {GameId}", id);
+
             var game = await repo.GetByIdAsync(id, ct);
-            return game is not null ? Results.Ok(game.ToDto()) : Results.NotFound();
+            if (game is null)
+                return Results.NotFound();
+
+            var gameDto = game.ToDto();
+
+            await cache.SetStringAsync(
+                cacheKey,
+                JsonSerializer.Serialize(gameDto),
+                new DistributedCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)
+                },
+                ct);
+
+            return Results.Ok(gameDto);
+
         }).WithName(GetGameById);
+
 
         group.MapPost("/", async (CreateGameDto dto, IGameRepository repo, CancellationToken ct) =>
         {
