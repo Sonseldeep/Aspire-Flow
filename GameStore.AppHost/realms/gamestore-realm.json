@@ -1,0 +1,19 @@
+{
+  "realm": "gamestore",
+  "enabled": true,
+  "clients": [
+    {
+      "clientId": "gamestore-api",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false
+    }
+  ],
+  "users": [
+    {
+      "username": "admin",
+      "enabled": true,
+      "credentials": [{ "type": "password", "value": "admin", "temporary": false }]
+    }
+  ]
+}

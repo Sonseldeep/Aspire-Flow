@@ -57,13 +57,13 @@ if (app.Environment.IsDevelopment())
 app.UseExceptionHandler();           
 app.UseHttpsRedirection(); 
 
-        
 
 
 app.MapDefaultEndpoints();
 app.MapGameEndpoints();
 
 app.Run();
+
 
 
 
