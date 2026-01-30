@@ -69,9 +69,10 @@ public static class GameEndpoints
         {
             var game = dto.ToEntity();
             await repo.AddAsync(game, ct);
-            
+
             return Results.CreatedAtRoute(GetGameById, new { id = game.Id }, game.ToDto());
-        });
+        }).RequireAuthorization();
+
 
         group.MapPut("/{id:guid}",
             async (Guid id, UpdateGameDto dto, IGameRepository repo, CancellationToken ct) =>
@@ -81,11 +82,12 @@ public static class GameEndpoints
                 {
                     return Results.NotFound();
                 }
+
                 game.UpdateFromDto(dto);
                 await repo.UpdateAsync(game, ct);
-                
+
                 return Results.NoContent();
-            });
+            }).RequireAuthorization();
 
         group.MapDelete("/{id:guid}", async (Guid id, IGameRepository repo, CancellationToken ct) =>
         {
@@ -94,8 +96,9 @@ public static class GameEndpoints
             {
                 return Results.NotFound();
             }
+
             await repo.DeleteAsync(game, ct);
             return Results.NoContent();
-        });
+        }).RequireAuthorization();
     }
 }
