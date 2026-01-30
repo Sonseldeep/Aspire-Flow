@@ -4,17 +4,17 @@ using GameStore.Api.Extensions;
 using GameStore.Api.Middleware;
 using GameStore.Api.Repositories;
 using Scalar.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 builder.AddServiceDefaults();
 
 builder.AddNpgsqlDbContext<GameStoreContext>("GameStore");
-builder.Services.AddScoped<IGameRepository,GameRepository>();
+builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.AddRedisDistributedCache("redis");
-
-// builder.Services.AddPresistence(builder.Configuration);
 
 builder.Services.AddValidation();
 builder.Services.AddOpenApi();
@@ -31,6 +31,17 @@ builder.Services.AddProblemDetails(options =>
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = "http://localhost:8080/realms/gamestore";
+        options.Audience = "gamestore-api";
+        options.RequireHttpsMetadata = false; 
+        
+    });
+
+builder.Services.AddAuthorizationBuilder();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -42,12 +53,18 @@ if (app.Environment.IsDevelopment())
     await app.ApplyMigrationsAsync();
 }
 
+
+app.UseExceptionHandler();           
+app.UseHttpsRedirection(); 
+
+        
+
+
 app.MapDefaultEndpoints();
 app.MapGameEndpoints();
-app.UseHttpsRedirection();
-app.UseExceptionHandler();
-
-
 
 app.Run();
+
+
+
 
