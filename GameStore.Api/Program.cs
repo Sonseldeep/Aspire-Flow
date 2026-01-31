@@ -31,15 +31,18 @@ builder.Services.AddProblemDetails(options =>
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.Authority = "http://localhost:8080/realms/gamestore";
-        options.Audience = "gamestore-api";
-        options.RequireHttpsMetadata = false; 
-        
-    });
+// builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//     .AddJwtBearer(options =>
+//     {
+//         options.Authority = "http://localhost:8080/realms/gamestore";
+//         options.Audience = "gamestore-api";
+//         options.RequireHttpsMetadata = false; 
+//         
+//     });
 
+builder.Services.AddAuthentication().AddJwtBearer();
+
+builder.Services.AddAuthorization();
 builder.Services.AddAuthorizationBuilder();
 
 var app = builder.Build();
