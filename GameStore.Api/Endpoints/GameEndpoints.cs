@@ -13,7 +13,9 @@ public static class GameEndpoints
     {
         var group = app.MapGroup("/api/games").WithTags("Games");
 
-        group.MapGet("/", async (IGameRepository repo, CancellationToken ct) =>
+        group.MapGet("/",
+            async (IGameRepository repo,
+            CancellationToken ct) =>
         {
             var games = await repo.GetAllAsync(ct);
 
@@ -65,7 +67,10 @@ public static class GameEndpoints
         }).WithName(GetGameById);
 
 
-        group.MapPost("/", async (CreateGameDto dto, IGameRepository repo, CancellationToken ct) =>
+        group.MapPost("/", 
+            async (CreateGameDto dto,
+            IGameRepository repo, 
+            CancellationToken ct) =>
         {
             var game = dto.ToEntity();
             await repo.AddAsync(game, ct);
@@ -75,7 +80,10 @@ public static class GameEndpoints
 
 
         group.MapPut("/{id:guid}",
-            async (Guid id, UpdateGameDto dto, IGameRepository repo, CancellationToken ct) =>
+                async (Guid id,
+                UpdateGameDto dto,
+                IGameRepository repo,
+                CancellationToken ct) =>
             {
                 var game = await repo.GetByIdAsync(id, ct);
                 if (game is null)
@@ -89,7 +97,10 @@ public static class GameEndpoints
                 return Results.NoContent();
             }).RequireAuthorization();
 
-        group.MapDelete("/{id:guid}", async (Guid id, IGameRepository repo, CancellationToken ct) =>
+        group.MapDelete("/{id:guid}", 
+                    async (Guid id,
+                    IGameRepository repo,
+                    CancellationToken ct) =>
         {
             var game = await repo.GetByIdAsync(id, ct);
             if (game is null)
@@ -99,6 +110,10 @@ public static class GameEndpoints
 
             await repo.DeleteAsync(game, ct);
             return Results.NoContent();
-        }).RequireAuthorization();
+        })
+            .RequireAuthorization(policy =>
+        {
+            policy.RequireRole("Admin");
+        });
     }
 }
