@@ -30,6 +30,7 @@ builder.Services.AddProblemDetails(options =>
 });
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.AddTemplateAppCors();
 
 // builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 //     .AddJwtBearer(options =>
@@ -46,6 +47,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddAuthorizationBuilder();
 
 var app = builder.Build();
+app.UseCors();
 
 if (app.Environment.IsDevelopment())
 {
